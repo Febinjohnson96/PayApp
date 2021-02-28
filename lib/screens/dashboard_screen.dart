@@ -9,18 +9,12 @@ class DashScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          child: FutureBuilder(
+          child: FutureBuilder<User>(
             future: fetchUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    User user = snapshot.data[index];
-                    return Text('{$user.name}');
-                  },
-                );
+                final user = snapshot.data;
+                return Text("Name: ${user.name}");
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
